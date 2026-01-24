@@ -112,6 +112,25 @@ class Config:
     def faster_whisper_large_v3_dir(self) -> Path:
         return self.models_dir / "Systran" / "faster-whisper-large-v3"
 
+    @property
+    def valid_speakers(self) -> list[str]:
+        """Return a list of valid speaker identifiers supported by the TTS models.
+
+        Keep this list in sync with available model voices. Can be overridden
+        by changing speakers in configuration or model assets.
+        """
+        return [
+            "Vivian",
+            "Serena",
+            "Uncle_Fu",
+            "Dylan",
+            "Eric",
+            "Ryan",
+            "Aiden",
+            "Ono_Anna",
+            "Sohee",
+        ]
+
 
 config = Config()
 

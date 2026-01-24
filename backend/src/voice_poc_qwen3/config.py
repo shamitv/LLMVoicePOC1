@@ -77,6 +77,10 @@ class Config:
         return Path(self.get("MODELS_DIR", r"D:\\work\\models"))
 
     @property
+    def data_dir(self) -> Path:
+        return Path(self.get("DATA_DIR", "./data"))
+
+    @property
     def qwen_dir(self) -> Path:
         return self.models_dir / "Qwen"
 

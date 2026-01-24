@@ -18,10 +18,10 @@ def main() -> None:
 	)
 
 	wavs, sr = model.generate_custom_voice(
-		text="其实我真的有发现，我是一个特别善于观察别人情绪的人。",
-		language="Chinese",
+		text="I realized I'm especially good at noticing other people's emotions.",
+		language="English",
 		speaker="Vivian",
-		instruct="用特别愤怒的语气说",
+		instruct="Say it in a very angry tone.",
 	)
 
 	output_path = Path(config.data_dir) / "output_custom_voice.wav"

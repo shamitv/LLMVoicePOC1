@@ -5,3 +5,4 @@ pydantic
 requests
 aiohttp
 openai
+qwen-tts

@@ -45,7 +45,9 @@ else:
     logger.info("Source audio transcript file found: %s", source_audio_transcript_path)
 
 
-ref_audio = source_audio_path
+# Load audio explicitly to avoid sox/librosa issues
+ref_audio_data, ref_audio_sr = sf.read(str(source_audio_path))
+ref_audio = (ref_audio_data, ref_audio_sr)
 ref_text = source_audio_transcript_path.read_text(encoding="utf-8").strip()
 
 start_time = time.time()
@@ -54,7 +56,7 @@ logger.info("Starting voice cloning inference...")
 output_file = config.data_dir / "output" /"output_voice_clone.wav"
 
 wavs, sr = model.generate_voice_clone(
-    text="This is a voice cloning test using Qwen TTS model.",
+    text=" You think this is just meat? You think this is merely a commodity to be buried under cheap cheddar and wilted lettuce? You tragic, hollow soul. This isn't dinner. This is architecture.",
     language="English",
     ref_audio=ref_audio,
     ref_text=ref_text,

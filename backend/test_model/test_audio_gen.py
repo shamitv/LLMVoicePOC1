@@ -19,40 +19,25 @@ logger = logging.getLogger("test_audio_gen")
 logger.setLevel(logging.INFO)
 
 
-def create_voice(text: str, instructions: str) -> None:
+def create_voice(model, text: str, instructions: str, filename: str) -> None:
     start_total = time.perf_counter()
-    logger.debug("Starting audio generation example")
 
-    model_path = config.qwen3_tts_12hz_17b_customvoice_dir
-    logger.debug("Model path resolved: %s", model_path)
-
-	try:
-        t0 = time.perf_counter()
-        logger.debug("Loading model from %s", model_path)
-		model = Qwen3TTSModel.from_pretrained(
-			str(model_path),
-			device_map="cuda:0",
-			dtype=torch.bfloat16,
-			attn_implementation="sdpa",
-		)
-        load_time = time.perf_counter() - t0
-        logger.info("Model loaded (%.2fs)", load_time)
-
+    try:
         t1 = time.perf_counter()
-        logger.debug("Generating audio...")
+        logger.debug("Generating audio for file: %s", filename)
         chosen_speaker = config.default_speaker
         logger.debug("Using speaker: %s", chosen_speaker)
 
-		wavs, sr = model.generate_custom_voice(
-			text=text,
-			language="English",
-			speaker=chosen_speaker,
-			instruct=instructions,
-		)
+        wavs, sr = model.generate_custom_voice(
+            text=text,
+            language="English",
+            speaker=chosen_speaker,
+            instruct=instructions,
+        )
         gen_time = time.perf_counter() - t1
         logger.info("Audio generation completed (%.2fs) — produced %d wave(s), sample rate %d", gen_time, len(wavs), sr)
 
-        output_path = Path(config.data_dir) / "output" / "patty" / "patty.wav"
+        output_path = Path(config.data_dir) / "output" / "patty" / filename
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         t2 = time.perf_counter()
@@ -62,14 +47,14 @@ def create_voice(text: str, instructions: str) -> None:
         logger.debug("Wrote output (%.2fs)", write_time)
 
         total_time = time.perf_counter() - start_total
-        logger.debug("Finished all steps in %.2fs (load: %.2fs, gen: %.2fs, write: %.2fs)", total_time, load_time, gen_time, write_time)
+        logger.debug("Finished generation step in %.2fs (gen: %.2fs, write: %.2fs)", total_time, gen_time, write_time)
 
-	except Exception:
-		logger.exception("Error during audio generation example")
+    except Exception:
+        logger.exception("Error during audio generation for %s", filename)
 
 
 if __name__ == "__main__":
-	text = """
+    text = """
 
         You think this is just meat? You think this is merely a commodity to be buried under cheap cheddar and wilted lettuce? You tragic, hollow soul. This isn't dinner. This is architecture.
 
@@ -84,10 +69,10 @@ When a customer bites into this, they shouldn't taste "beef." They should taste 
 Now. Wash your hands. And try again.
 
 
-	"""
-instructions = "dramatic, emotional, and deliberately over-the-top"
+    """
+    instructions = "dramatic, emotional, and deliberately over-the-top"
 
-audio_styles = [
+    audio_styles = [
     {
         "title": "The Kitchen Nightmare",
         "description": "Pure Rage",
@@ -148,6 +133,21 @@ audio_styles = [
         "instruction": "gentle, soothing, soft, melodic, slow, warm, storytelling",
         "filename": "audio_bedtime.wav"
     }
-]
+    ]
 
-create_voice(text, instructions)
+    model_path = config.qwen3_tts_12hz_17b_customvoice_dir
+    logger.debug("Model path resolved: %s", model_path)
+
+    logger.info("Loading model...")
+    t0 = time.perf_counter()
+    model = Qwen3TTSModel.from_pretrained(
+        str(model_path),
+        device_map="cuda:0",
+        dtype=torch.bfloat16,
+        attn_implementation="sdpa",
+    )
+    logger.info("Model loaded in %.2fs", time.perf_counter() - t0)
+
+    for style in audio_styles:
+        logger.info("Processing style: %s (%s)", style['title'], style['description'])
+        create_voice(model, text, style['instruction'], style['filename'])

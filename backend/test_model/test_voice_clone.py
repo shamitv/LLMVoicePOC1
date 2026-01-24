@@ -31,4 +31,19 @@ model = Qwen3TTSModel.from_pretrained(
 
 logger.info("Model loaded successfully.")
 
-r
+source_audio_path = config.data_dir / "input" / "source_audio.wav"
+source_audio_transcript_path = config.data_dir / "input" / "source_audio_transcript.txt"
+
+if not source_audio_path.is_file():
+    raise FileNotFoundError(f"Source audio file not found: {source_audio_path}")
+else:
+    logger.info("Source audio file found: %s", source_audio_path)
+
+if not source_audio_transcript_path.is_file():
+    raise FileNotFoundError(f"Source audio transcript file not found: {source_audio_transcript_path}")
+else:
+    logger.info("Source audio transcript file found: %s", source_audio_transcript_path)
+
+
+ref_audio = source_audio_path
+ref_text = source_audio_transcript_path.read_text(encoding="utf-8").strip()

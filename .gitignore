@@ -199,6 +199,27 @@ cython_debug/
 #  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
+.gitignore_local
+
+# Ignore backend data directory (local model/artifact storage)
+backend/data/
+# Ignore any .ner files placed anywhere under backend/data (root or subdirectories)
+backend/data/*.ner
+backend/data/**/*.ner
+# Ignore audio files under backend/data
+backend/data/*.wav
+backend/data/**/*.wav
+backend/data/*.mp3
+backend/data/**/*.mp3
+
+# Ignore top-level runtime outputs (created when running from repo root)
+data/
+data/*.ner
+data/**/*.ner
+data/*.wav
+data/**/*.wav
+data/*.mp3
+data/**/*.mp3
 .cursorindexingignore
 
 # Marimo

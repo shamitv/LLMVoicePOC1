@@ -85,5 +85,69 @@ Now. Wash your hands. And try again.
 
 
 	"""
-	instructions = "dramatic, emotional, and deliberately over-the-top"
-	create_voice(text, instructions)
+instructions = "dramatic, emotional, and deliberately over-the-top"
+
+audio_styles = [
+    {
+        "title": "The Kitchen Nightmare",
+        "description": "Pure Rage",
+        "instruction": "furious, shouting, abusive, fast-paced, high energy, explosive",
+        "filename": "audio_rage.wav"
+    },
+    {
+        "title": "The Noir Detective",
+        "description": "Inner Monologue",
+        "instruction": "gravelly, cynical, slow-paced, film noir voiceover, tired, low pitch",
+        "filename": "audio_noir.wav"
+    },
+    {
+        "title": "The Televangelist",
+        "description": "The Sermon",
+        "instruction": "preaching, evangelical, rhythmic, booming resonance, Southern drawl, passionate",
+        "filename": "audio_sermon.wav"
+    },
+    {
+        "title": "Unsettling ASMR",
+        "description": "The Creepy Whisper",
+        "instruction": "soft whisper, intimate, breathy, slow, tingling, menacingly quiet",
+        "filename": "audio_asmr.wav"
+    },
+    {
+        "title": "The Shakespearean Actor",
+        "description": "The Thespian",
+        "instruction": "theatrical, grandiose, projecting, old-fashioned, articulated, regal, dramatic",
+        "filename": "audio_theatrical.wav"
+    },
+    {
+        "title": "The Broken Chef",
+        "description": "The Breakdown",
+        "instruction": "sobbing, trembling voice, shaky, hysterical, sorrowful, on the verge of tears",
+        "filename": "audio_crying.wav"
+    },
+    {
+        "title": "The Hal 9000",
+        "description": "The Cold Analysis",
+        "instruction": "robotic, monotone, flat, precise, unemotional, synthetic, cold",
+        "filename": "audio_robotic.wav"
+    },
+    {
+        "title": "The Sarcastic Teenager",
+        "description": "The Bore",
+        "instruction": "bored, monotone, vocal fry, dismissive, sarcastic, eye-rolling tone",
+        "filename": "audio_bored.wav"
+    },
+    {
+        "title": "The Movie Trailer Guy",
+        "description": "The Hype",
+        "instruction": "deep voice, epic, gravelly, trailer narration, intense, suspenseful",
+        "filename": "audio_trailer.wav"
+    },
+    {
+        "title": "The Bedtime Story",
+        "description": "The Gentle Parent",
+        "instruction": "gentle, soothing, soft, melodic, slow, warm, storytelling",
+        "filename": "audio_bedtime.wav"
+    }
+]
+
+create_voice(text, instructions)

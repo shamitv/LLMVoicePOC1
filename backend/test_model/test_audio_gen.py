@@ -28,7 +28,7 @@ def create_voice(model, text: str, instructions: str, filename: str) -> None:
         chosen_speaker = config.default_speaker
         logger.debug("Using speaker: %s", chosen_speaker)
 
-        wavs, sr = model.generate_custom_voice(
+        wavs, sr = model.generate_voice_design(
             text=text,
             language="English",
             speaker=chosen_speaker,
@@ -134,18 +134,18 @@ Now. Wash your hands. And try again."""
     {
         "title": "The Bedtime Story",
         "description": "The Gentle Parent",
-        "instruction": "Female, Age 75, soothing tone, low octave, gentle, soothing, soft, melodic, slow, warm, storytelling",
+        "instruction": "Age 25, creepy deep tone, storytelling, no exitement at all, slow-paced",
         "filename": "audio_bedtime.wav"
     }
     ]
 
     audio_styles = [
-        audio_styles_0[0],
-        audio_styles_0[3],
-        audio_styles_0[7],
+       # audio_styles_0[0],
+      #  audio_styles_0[3],
+      #  audio_styles_0[7],
         audio_styles_0[9],
     ]
-    model_path = config.qwen3_tts_12hz_17b_customvoice_dir
+    model_path = config.qwen3_tts_12hz_17b_voicedesign_dir
     logger.debug("Model path resolved: %s", model_path)
 
     logger.info("Loading model...")
@@ -158,6 +158,6 @@ Now. Wash your hands. And try again."""
     )
     logger.info("Model loaded in %.2fs", time.perf_counter() - t0)
 
-    for style in audio_styles:
+    for style in audio_styles_0:
         logger.info("Processing style: %s (%s)", style['title'], style['description'])
         create_voice(model, text, style['instruction'], style['filename'])

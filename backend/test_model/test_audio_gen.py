@@ -19,7 +19,7 @@ logging.basicConfig(
 logger = logging.getLogger("test_audio_gen")
 
 
-def main() -> None:
+def main(text: str, instructions: str) -> None:
 	start_total = time.perf_counter()
 	logger.info("Starting audio generation example")
 
@@ -40,12 +40,15 @@ def main() -> None:
 
 		t1 = time.perf_counter()
 		logger.info("Generating audio...")
-		wavs, sr = model.generate_custom_voice(
-			text="I realized I'm especially good at noticing other people's emotions.",
-			language="English",
-			speaker="Vivian",
-			instruct="Say it in a very angry tone.",
-		)
+			chosen_speaker = config.default_speaker
+			logger.info("Using speaker: %s", chosen_speaker)
+
+			wavs, sr = model.generate_custom_voice(
+				text=text,
+				language="English",
+				speaker=chosen_speaker,
+				instruct=instructions,
+			)
 		gen_time = time.perf_counter() - t1
 		logger.info("Audio generation completed (%.2fs) — produced %d wave(s), sample rate %d", gen_time, len(wavs), sr)
 
@@ -66,4 +69,18 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-	main()
+	text = """
+	Friends. Mumbaikars. Lovers of the carb-on-carb miracle.
+
+I stand before you today not to talk about potatoes. Oh, the potato is important, yes. 
+The batata vada needs its spicy heart, the mustard seeds popping in hot oil, the turmeric bleeding its sunshine hue into the mash, the curry leaves singing their aromatic song. 
+We know this. We respect this.
+
+But what good is a heart... if it has no ribcage?
+
+What good is a soul... if it has no body to house it?
+
+I am here to speak of the unsung hero. The silent guardian. The golden armor that stands between culinary ecstasy and absolute, soggy disaster. I am here to speak... of the Besan Batter.
+	"""
+	instructions = "Speak in a cheerful and energetic tone."
+	main(text, instructions)

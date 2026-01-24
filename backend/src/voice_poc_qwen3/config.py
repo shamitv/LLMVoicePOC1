@@ -131,6 +131,17 @@ class Config:
             "Sohee",
         ]
 
+    @property
+    def default_speaker(self) -> str:
+        """Return the default speaker to use. Can be overridden by the `SPEAKER` env var.
+
+        Falls back to `Aiden` if the configured speaker is not in `valid_speakers`.
+        """
+        speaker = self.get("SPEAKER", "Aiden")
+        if speaker not in self.valid_speakers:
+            return "Aiden"
+        return speaker
+
 
 config = Config()
 

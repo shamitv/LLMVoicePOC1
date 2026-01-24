@@ -19,7 +19,7 @@ logging.basicConfig(
 logger = logging.getLogger("test_audio_gen")
 
 
-def main(text: str, instructions: str) -> None:
+def create_voice(text: str, instructions: str) -> None:
 	start_total = time.perf_counter()
 	logger.info("Starting audio generation example")
 
@@ -40,19 +40,19 @@ def main(text: str, instructions: str) -> None:
 
 		t1 = time.perf_counter()
 		logger.info("Generating audio...")
-			chosen_speaker = config.default_speaker
-			logger.info("Using speaker: %s", chosen_speaker)
+		chosen_speaker = config.default_speaker
+		logger.info("Using speaker: %s", chosen_speaker)
 
-			wavs, sr = model.generate_custom_voice(
-				text=text,
-				language="English",
-				speaker=chosen_speaker,
-				instruct=instructions,
-			)
+		wavs, sr = model.generate_custom_voice(
+			text=text,
+			language="English",
+			speaker=chosen_speaker,
+			instruct=instructions,
+		)
 		gen_time = time.perf_counter() - t1
 		logger.info("Audio generation completed (%.2fs) — produced %d wave(s), sample rate %d", gen_time, len(wavs), sr)
 
-		output_path = Path(config.data_dir) / "output_custom_voice.wav"
+		output_path = Path(config.data_dir) / "output" / "patty" / "patty.wav"
 		output_path.parent.mkdir(parents=True, exist_ok=True)
 
 		t2 = time.perf_counter()
@@ -70,17 +70,20 @@ def main(text: str, instructions: str) -> None:
 
 if __name__ == "__main__":
 	text = """
-	Friends. Mumbaikars. Lovers of the carb-on-carb miracle.
 
-I stand before you today not to talk about potatoes. Oh, the potato is important, yes. 
-The batata vada needs its spicy heart, the mustard seeds popping in hot oil, the turmeric bleeding its sunshine hue into the mash, the curry leaves singing their aromatic song. 
-We know this. We respect this.
+        You think this is just meat? You think this is merely a commodity to be buried under cheap cheddar and wilted lettuce? You tragic, hollow soul. This isn't dinner. This is architecture.
 
-But what good is a heart... if it has no ribcage?
+Look at this grind. Look at the ratio. That fat isn't just white speckling; it is the holy spirit of the burger, waiting to be released. If you mistreat it... if you pack it too tight... you are strangling an angel. The toppings are the choir, the bun is the pew, but the patty is the sermon. And if the sermon is dry, the church is empty.
 
-What good is a soul... if it has no body to house it?
+And you want to press on it? You want to take your spatula, that blunt instrument of ignorance, and squeeze the life force out of it? To hear it hiss? That hiss isn't cooking. That hiss is the sound of the burger’s soul screaming as it evaporates into the hood vent! You are robbing it of its juice, its essence, its very reason for existing!
 
-I am here to speak of the unsung hero. The silent guardian. The golden armor that stands between culinary ecstasy and absolute, soggy disaster. I am here to speak... of the Besan Batter.
+We are looking for a crucible here! A war between the heat of the iron and the cool integrity of the center. If you overwork this meat, if you handle it with your warm, clumsy hands until the fat melts before it hits the pan, you have failed. You have created a hockey puck of despair.
+
+When a customer bites into this, they shouldn't taste "beef." They should taste victory. They should taste the iron of the earth and the smoke of the gods. So do not talk to me about speed. Everything else—the cheese, the sauce, the pickle—is just a lie we tell ourselves to hide from the truth. And the truth is the meat.
+
+Now. Wash your hands. And try again.
+
+
 	"""
-	instructions = "Speak in a cheerful and energetic tone."
-	main(text, instructions)
+	instructions = "dramatic, emotional, and deliberately over-the-top"
+	create_voice(text, instructions)

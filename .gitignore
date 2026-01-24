@@ -206,6 +206,11 @@ backend/data/
 # Ignore any .ner files placed anywhere under backend/data (root or subdirectories)
 backend/data/*.ner
 backend/data/**/*.ner
+# Ignore audio files under backend/data
+backend/data/*.wav
+backend/data/**/*.wav
+backend/data/*.mp3
+backend/data/**/*.mp3
 .cursorindexingignore
 
 # Marimo

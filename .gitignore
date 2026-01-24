@@ -203,6 +203,9 @@ cython_debug/
 
 # Ignore backend data directory (local model/artifact storage)
 backend/data/
+# Ignore any .ner files placed anywhere under backend/data (root or subdirectories)
+backend/data/*.ner
+backend/data/**/*.ner
 .cursorindexingignore
 
 # Marimo

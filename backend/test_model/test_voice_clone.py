@@ -47,3 +47,19 @@ else:
 
 ref_audio = source_audio_path
 ref_text = source_audio_transcript_path.read_text(encoding="utf-8").strip()
+
+start_time = time.time()
+logger.info("Starting voice cloning inference...")
+
+output_file = config.data_dir / "output" /"output_voice_clone.wav"
+
+wavs, sr = model.generate_voice_clone(
+    text="This is a voice cloning test using Qwen TTS model.",
+    language="English",
+    ref_audio=ref_audio,
+    ref_text=ref_text,
+)
+sf.write(output_file, wavs[0], sr)
+
+end_time = time.time()
+logger.info("Voice cloning inference completed in %.2f seconds.", end_time - start_time)

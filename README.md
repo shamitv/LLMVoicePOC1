@@ -1,8 +1,8 @@
-# LLMVoicePOC1
+# VoiceCanvas
 
 An early voice creation studio for expressive narration and character voices, powered by Qwen3-TTS.
 
-LLMVoicePOC1 explores turning written text and plain-language voice descriptions into speech. The aim is to let creators direct how a voice sounds—its tone, emotion, pace, and character—for storytelling, voiceovers, and character dialogue.
+VoiceCanvas explores turning written text and plain-language voice descriptions into speech. The aim is to let creators direct how a voice sounds—its tone, emotion, pace, and character—for storytelling, voiceovers, and character dialogue.
 
 For example, the same passage could be delivered as a weary noir detective, a theatrical narrator, or an energetic movie-trailer voice. Changing the voice direction lets you explore different performances of the same words.
 
